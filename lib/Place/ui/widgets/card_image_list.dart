@@ -10,37 +10,37 @@ class CardImageList extends StatelessWidget {
         padding: const EdgeInsets.all(25.0),
         scrollDirection: Axis.horizontal,
         children: [
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/rio.jpeg",
               width: 300.0,
               height: 200.0,
               onPressedFabIcon: () {},
               iconData: Icons.favorite_border),
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/teleferico.jpeg",
               width: 300.0,
               height: 200.0,
               onPressedFabIcon: () {},
               iconData: Icons.favorite_border),
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/montanas.jpeg",
               width: 300.0,
               height: 200.0,
               onPressedFabIcon: () {},
               iconData: Icons.favorite_border),
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/extremo.jpeg",
               width: 300.0,
               height: 200.0,
               onPressedFabIcon: () {},
               iconData: Icons.favorite_border),
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/piscina.jpeg",
               width: 300.0,
               height: 200.0,
               onPressedFabIcon: () {},
               iconData: Icons.favorite_border),
-          CardImageWithFabIcon(
+          CardImageWithFabIcon(20,
               pathImage: "assets/img/paracaidas.jpeg",
               width: 300.0,
               height: 200.0,

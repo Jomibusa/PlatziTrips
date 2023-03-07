@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../widgets/floating_action_button_green.dart';
@@ -6,11 +8,11 @@ class CardImageWithFabIcon extends StatelessWidget {
   final String pathImage;
   final double height;
   final double width;
-  double left = 20.0;
+  final double left;
   final VoidCallback onPressedFabIcon;
   final IconData iconData;
 
-  CardImageWithFabIcon(
+  const CardImageWithFabIcon(this.left,
       {super.key,
       required this.pathImage,
       required this.width,
@@ -20,15 +22,25 @@ class CardImageWithFabIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider<Object> image;
+    //Selleciona que tipo de imagen se va a mostrar. local, de camara, de internet
+    if (pathImage.contains("assets")) {
+      image = AssetImage(pathImage);
+    } else if (pathImage.contains("https:")) {
+      image = NetworkImage(pathImage);
+    } else {
+      image = FileImage(File(pathImage));
+    }
+
     final card = Container(
       height: height,
       width: width,
       margin: EdgeInsets.only(left: left),
       decoration: BoxDecoration(
           image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(pathImage),
-          ),
+              fit: BoxFit.cover,
+              //image: AssetImage(pathImage),
+              image: image),
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
           shape: BoxShape.rectangle,
           boxShadow: const <BoxShadow>[

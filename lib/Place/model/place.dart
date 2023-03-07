@@ -4,16 +4,16 @@ class InfoPlace {
   String? id;
   String name;
   String description;
-  String urlImage;
+  String? urlImage;
   int? likes;
   UserModel? userOwner;
 
   InfoPlace({
     required this.name,
     required this.description,
-    required this.urlImage,
+    this.urlImage,
     this.id,
     this.likes,
-    required this.userOwner
+    this.userOwner
   });
 }

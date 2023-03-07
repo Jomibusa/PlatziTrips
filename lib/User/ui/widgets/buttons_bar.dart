@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:platzi_trips_app/Place/ui/screens/add_place_screen.dart';
 import 'package:platzi_trips_app/User/bloc/bloc_user.dart';
 import 'circle_button.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ButtonsBar extends StatelessWidget {
   late UserBloc userBloc;
@@ -28,12 +30,14 @@ class ButtonsBar extends StatelessWidget {
             CircleButton(
                 false, Icons.add, 40.0, const Color.fromRGBO(255, 255, 255, 1),
                 onPressed: () {
-              File? image;
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          AddPlaceScreen(image: File(image?.path ?? ""))));
+              final picker = ImagePicker();
+              picker.pickImage(source: ImageSource.camera).then((value) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            AddPlaceScreen(image: File(value?.path ?? ""))));
+              }).catchError((onError) => print(onError));
             }),
             //Cerrar la sesión
             CircleButton(true, Icons.exit_to_app, 20.0,

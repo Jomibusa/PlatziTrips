@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:platzi_trips_app/Place/model/place.dart';
 import 'package:platzi_trips_app/Place/ui/widgets/text_input_location.dart';
 import 'package:platzi_trips_app/widgets/gradient_back.dart';
 import 'package:platzi_trips_app/widgets/text_input.dart';
@@ -38,15 +39,14 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
           appBar(),
           //Widgets debajo del AppBar
           Container(
-            margin: const EdgeInsets.only(top: 80.0, bottom: 20.0),
+            margin: const EdgeInsets.only(top: 100.0, bottom: 20.0),
             child: ListView(
               children: <Widget>[
                 Container(
                     margin: const EdgeInsets.only(top: 30.0),
                     alignment: Alignment.center,
-                    child: CardImageWithFabIcon(
-                        //pathImage: widget.image?.path??"",
-                        pathImage: "assets/img/rio.jpeg",
+                    child: CardImageWithFabIcon(0,
+                        pathImage: widget.image?.path??"assets/img/rio.jpeg",
                         width: 300.0,
                         height: 250.0,
                         onPressedFabIcon: () {},
@@ -75,11 +75,29 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                       fontSize: 14.0,
                       iconData: Icons.location_on_outlined),
                 ),
-                SizedBox(
+                Container(
                     width: 70.0,
-                    height: 70.0,
-                    child:
-                        ButtonPurple(buttonText: "Add Place", onPressed: () {}))
+                    child: ButtonPurple(
+                      buttonText: "Add Place",
+                      onPressed: () {
+                        //Firebase storage
+                        //url
+                        //cloud firestores
+                        //place - title - description- url
+                        userBloc
+                            .updatePlaceData(InfoPlace(
+                                name: _controllerTitlePlace.text,
+                                description: _controllerDescriptionPlace.text,
+                                urlImage: "urlImage",
+                                likes: 0))
+                            .whenComplete(() {
+                          print("TERMINO");
+                          Navigator.pop(context);
+                        });
+                      },
+                      width: 200.0,
+                      height: 50.0,
+                    ))
               ],
             ),
           )
