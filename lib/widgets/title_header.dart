@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TitleHeader extends StatelessWidget {
@@ -8,7 +7,6 @@ class TitleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //double screenWidht = MediaQuery.of(context).size.width;
     return Text(title,
         style: const TextStyle(
             color: Colors.white,

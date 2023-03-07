@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
-class FloatigActionButtonGreen extends StatefulWidget {
+class FloatingActionButtonGreen extends StatefulWidget {
+  final IconData iconData;
+  final VoidCallback onPressed;
+
+  const FloatingActionButtonGreen(
+      {super.key, required this.iconData, required this.onPressed});
+
   @override
   State createState() {
     return _FloatingActionButtonGreen();
   }
 }
 
-class _FloatingActionButtonGreen extends State<FloatigActionButtonGreen> {
+class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      backgroundColor: const Color(0xFF11DA53),
+      onPressed: widget.onPressed,
       mini: true,
       tooltip: "Fav",
       heroTag: null,
