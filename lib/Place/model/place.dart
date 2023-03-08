@@ -6,7 +6,7 @@ class InfoPlace {
   String description;
   String? urlImage;
   int? likes;
-  UserModel? userOwner;
+  //UserModel? userOwner;
 
   InfoPlace({
     required this.name,
@@ -14,6 +14,6 @@ class InfoPlace {
     this.urlImage,
     this.id,
     this.likes,
-    this.userOwner
+    //this.userOwner
   });
 }

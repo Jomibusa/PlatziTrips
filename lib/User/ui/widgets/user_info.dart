@@ -15,14 +15,13 @@ class UserInfo extends StatelessWidget {
       margin: const EdgeInsets.only(right: 20.0),
       decoration: BoxDecoration(
           border: Border.all(
-              color: Colors.white, width: 2.0, style: BorderStyle.solid),
+              color: Colors.white, width: 1.5, style: BorderStyle.solid),
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,
               //image: AssetImage(user.photoURL)
-              image: NetworkImage(user.photoURL)
-          )
-      ),
+              image: NetworkImage(user.photoURL ??
+                  "https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png"))),
     );
 
     final userInfo = Column(
@@ -46,7 +45,7 @@ class UserInfo extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
       child: Row(
-        children: <Widget>[userPhoto, userInfo],
+        children: <Widget>[userPhoto, Expanded(child: userInfo)],
       ),
     );
   }

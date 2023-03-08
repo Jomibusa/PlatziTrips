@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:platzi_trips_app/Place/ui/widgets/card_image.dart';
 import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/Place/model/place.dart';
+import 'package:platzi_trips_app/User/ui/widgets/profile_place.dart';
 
 class CloudFirestoreAPI {
   static const String users = 'users';
@@ -45,5 +48,31 @@ class CloudFirestoreAPI {
         });
       });
     });
+  }
+
+  List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) {
+    List<ProfilePlace> profilePlaces = <ProfilePlace>[];
+    for (var element in placesListSnapshot) {
+      profilePlaces.add(ProfilePlace(InfoPlace(
+          likes: element['likes'],
+          name: element['name'],
+          description: element['description'],
+          urlImage: element['urlImage'])));
+    }
+    return profilePlaces;
+  }
+
+  List<CardImageWithFabIcon> buildPlaces(
+      List<DocumentSnapshot> placesListSnapshot) {
+    List<CardImageWithFabIcon> profilePlaces = <CardImageWithFabIcon>[];
+    for (var element in placesListSnapshot) {
+      profilePlaces.add(CardImageWithFabIcon(20,
+          pathImage: element['urlImage'],
+          width: 300.0,
+          height: 350.0,
+          onPressedFabIcon: () {},
+          iconData: Icons.favorite_border));
+    }
+    return profilePlaces;
   }
 }

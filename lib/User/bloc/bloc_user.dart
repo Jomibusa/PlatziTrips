@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -7,8 +8,13 @@ import 'package:platzi_trips_app/Place/model/place.dart';
 import 'package:platzi_trips_app/Place/repository/firebase_storage_repository.dart';
 import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/User/repository/auth_repository.dart';
+import 'package:platzi_trips_app/User/repository/cloud_firestore_api.dart';
 
+import '../../Place/ui/widgets/card_image.dart';
 import '../repository/cloud_firestore_repository.dart';
+import '../ui/widgets/profile_place.dart';
+
+final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 class UserBloc implements Bloc {
   final _auth_repository = AuthRepository();
@@ -38,6 +44,30 @@ class UserBloc implements Bloc {
 
   Future<void> updatePlaceData(InfoPlace place) =>
       _cloudFireStoreRepository.updatePlaceData(place);
+
+  //Metodo para agregar un listener de escucha ante cualquier cambio en la
+  //colecion de PLACES
+  Stream<QuerySnapshot> placesListStream = FirebaseFirestore.instance
+      .collection(CloudFirestoreAPI.places)
+      .snapshots();
+
+  Stream<QuerySnapshot> get placesStream => placesListStream;
+
+  //Metodo para construir lista de Places despues de haber obtenido los datos de Places de CloudFirestore
+  List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFireStoreRepository.buildMyPlaces(placesListSnapshot);
+
+  List<CardImageWithFabIcon> buildPlaces(
+          List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFireStoreRepository.buildPlaces(placesListSnapshot);
+
+  Stream<QuerySnapshot> myPlacesListStream(String uid) => FirebaseFirestore
+      .instance
+      .collection(CloudFirestoreAPI.places)
+      .where("userOwner",
+          isEqualTo:
+              FirebaseFirestore.instance.doc("${CloudFirestoreAPI.users}/$uid"))
+      .snapshots();
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 

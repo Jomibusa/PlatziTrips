@@ -22,14 +22,14 @@ class PlaceInfo extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              /*Text(
                 this.placeInfo.name,
                 style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.4),
                     fontFamily: 'Lato',
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold),
-              ),
+              ),*/
               Text(
                 this.placeInfo.description,
                 style: const TextStyle(

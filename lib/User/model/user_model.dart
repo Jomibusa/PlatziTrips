@@ -6,7 +6,7 @@ class UserModel {
   final String uid;
   final String name;
   final String email;
-  final String photoURL;
+  final String? photoURL;
   final List<ProfilePlace>? myPlaces;
   final List<ProfilePlace>? myFavoritePlaces;
 

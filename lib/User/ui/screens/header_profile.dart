@@ -6,25 +6,34 @@ import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/User/ui/widgets/user_info.dart';
 
 class HeaderProfile extends StatelessWidget {
-  late UserBloc userBloc;
+
   late UserModel user;
+
+  HeaderProfile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    userBloc = BlocProvider.of<UserBloc>(context);
+    const title = Text(
+      'Profile',
+      style: TextStyle(
+          fontFamily: 'Lato',
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 30.0),
+    );
 
-    return StreamBuilder(
-        stream: userBloc.streamFirebase,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-            case ConnectionState.none:
-              return const CircularProgressIndicator();
-            case ConnectionState.active:
-            case ConnectionState.done:
-              return showProfileData(snapshot);
-          }
-        });
+    return Container(
+      margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: const <Widget>[title],
+          ),
+          UserInfo(user: user),
+          ButtonsBar()
+        ],
+      ),
+    );
   }
 
   Widget showProfileData(AsyncSnapshot asyncSnapshot) {
