@@ -8,7 +8,6 @@ import 'package:platzi_trips_app/Place/model/place.dart';
 import 'package:platzi_trips_app/Place/ui/widgets/text_input_location.dart';
 import 'package:platzi_trips_app/widgets/gradient_back.dart';
 import 'package:platzi_trips_app/widgets/text_input.dart';
-
 import '../../../User/bloc/bloc_user.dart';
 import '../../../widgets/button_purple.dart';
 import '../../../widgets/title_header.dart';
@@ -36,7 +35,6 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
         children: [
           GradientBack(
             height: 300.0,
-            title: '',
           ),
           appBar(),
           //Widgets debajo del AppBar
@@ -101,7 +99,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                                   //2. Cloud Firestore
                                   //Place - title, description, url, userOwner, likes
                                   userBloc
-                                      .updatePlaceData(InfoPlace(
+                                      .updatePlaceData(PlaceModel(false,
                                           name: _controllerTitlePlace.text,
                                           description:
                                               _controllerDescriptionPlace.text,

@@ -1,19 +1,15 @@
-import 'package:platzi_trips_app/User/model/user_model.dart';
-
-class InfoPlace {
+class PlaceModel {
   String? id;
   String name;
   String description;
   String? urlImage;
   int? likes;
-  //UserModel? userOwner;
+  bool liked;
 
-  InfoPlace({
-    required this.name,
-    required this.description,
-    this.urlImage,
-    this.id,
-    this.likes,
-    //this.userOwner
-  });
+  PlaceModel(this.liked,
+      {required this.name,
+      required this.description,
+      this.urlImage,
+      this.id,
+      this.likes});
 }

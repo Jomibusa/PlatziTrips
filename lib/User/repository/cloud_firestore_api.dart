@@ -28,7 +28,7 @@ class CloudFirestoreAPI {
     }, SetOptions(merge: true));
   }
 
-  Future<void> updatePlaceData(InfoPlace place) async {
+  Future<void> updatePlaceData(PlaceModel place) async {
     CollectionReference refPlaces = _db.collection(CloudFirestoreAPI.places);
     User? currentUser = _auth.currentUser;
 
@@ -53,7 +53,7 @@ class CloudFirestoreAPI {
   List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) {
     List<ProfilePlace> profilePlaces = <ProfilePlace>[];
     for (var element in placesListSnapshot) {
-      profilePlaces.add(ProfilePlace(InfoPlace(
+      profilePlaces.add(ProfilePlace(PlaceModel(false,
           likes: element['likes'],
           name: element['name'],
           description: element['description'],
@@ -62,17 +62,49 @@ class CloudFirestoreAPI {
     return profilePlaces;
   }
 
-  List<CardImageWithFabIcon> buildPlaces(
-      List<DocumentSnapshot> placesListSnapshot) {
-    List<CardImageWithFabIcon> profilePlaces = <CardImageWithFabIcon>[];
-    for (var element in placesListSnapshot) {
-      profilePlaces.add(CardImageWithFabIcon(20,
-          pathImage: element['urlImage'],
-          width: 300.0,
-          height: 350.0,
-          onPressedFabIcon: () {},
-          iconData: Icons.favorite_border));
+  //Metodo para mostrar todos los Places en la pantalla de home
+  //Asi como definir que Places ya se le ha dado like por parte
+  //del usuario loguado
+  List<PlaceModel> buildPlaces(
+      List<DocumentSnapshot> placesListSnapshot, UserModel user) {
+    List<PlaceModel> profilePlaces = <PlaceModel>[];
+    for (var place in placesListSnapshot) {
+      PlaceModel currentPlace = PlaceModel(false,
+          id: place.id,
+          name: place['name'],
+          description: place['description'],
+          urlImage: place['urlImage'],
+          likes: place['likes']);
+      List usersLikedRefs =  place['usersLiked']??[];
+      currentPlace.liked = false;
+      for (var drUL in usersLikedRefs) {
+        if(user.uid == drUL.id){
+          currentPlace.liked = true;
+        }
+      }
+      profilePlaces.add(currentPlace);
     }
     return profilePlaces;
+  }
+
+  //Metodo para incrementar en 1 los likes de un PLACE
+  //Primero se obtiene los likes que tiene actualmente el PLACE utilizando el "idPlace"
+  //Despues se le incrementa en 1 y se guarda en la Base de datos de CloudFirebase
+  Future likePlace(PlaceModel place, String uid) async {
+    await _db
+        .collection(CloudFirestoreAPI.places)
+        .doc(place.id)
+        .get()
+        .then((value) {
+      int likes = value['likes'];
+      _db.collection(places).doc(place.id).update({
+        'likes': place.liked ? likes + 1 : likes - 1,
+        'usersLiked': place.liked
+            ? FieldValue.arrayUnion(
+                [_db.doc("${CloudFirestoreAPI.users}/$uid")])
+            : FieldValue.arrayRemove(
+                [_db.doc("${CloudFirestoreAPI.users}/$uid")])
+      });
+    });
   }
 }

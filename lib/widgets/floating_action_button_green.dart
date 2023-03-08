@@ -22,8 +22,8 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
       mini: true,
       tooltip: "Fav",
       heroTag: null,
-      child: const Icon(
-        Icons.favorite_border,
+      child: Icon(
+        widget.iconData,
         color: Colors.white,
       ),
     );

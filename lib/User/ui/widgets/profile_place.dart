@@ -4,7 +4,7 @@ import 'package:platzi_trips_app/Place/model/place.dart';
 
 class ProfilePlace extends StatelessWidget {
 
-  InfoPlace infoPlace;
+  PlaceModel infoPlace;
 
   ProfilePlace(this.infoPlace);
 

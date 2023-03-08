@@ -3,7 +3,7 @@ import 'package:platzi_trips_app/widgets/floating_action_button_green.dart';
 import 'package:platzi_trips_app/Place/model/place.dart';
 
 class PlaceInfo extends StatelessWidget {
-  InfoPlace placeInfo;
+  PlaceModel placeInfo;
 
   PlaceInfo(this.placeInfo);
 

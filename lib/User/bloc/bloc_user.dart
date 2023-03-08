@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,7 +43,7 @@ class UserBloc implements Bloc {
   void updateUserData(UserModel user) =>
       _cloudFireStoreRepository.updateUserDataFireStore(user);
 
-  Future<void> updatePlaceData(InfoPlace place) =>
+  Future<void> updatePlaceData(PlaceModel place) =>
       _cloudFireStoreRepository.updatePlaceData(place);
 
   //Metodo para agregar un listener de escucha ante cualquier cambio en la
@@ -57,10 +58,12 @@ class UserBloc implements Bloc {
   List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFireStoreRepository.buildMyPlaces(placesListSnapshot);
 
-  List<CardImageWithFabIcon> buildPlaces(
-          List<DocumentSnapshot> placesListSnapshot) =>
-      _cloudFireStoreRepository.buildPlaces(placesListSnapshot);
+  //Metodo pAra obtener todos los Places de la Base de datos
+  List<PlaceModel> buildPlaces(
+          List<DocumentSnapshot> placesListSnapshot, UserModel user) =>
+      _cloudFireStoreRepository.buildPlaces(placesListSnapshot, user);
 
+  //Metodo para seleccionar solo los PLaces del usuario logueado
   Stream<QuerySnapshot> myPlacesListStream(String uid) => FirebaseFirestore
       .instance
       .collection(CloudFirestoreAPI.places)
@@ -68,6 +71,10 @@ class UserBloc implements Bloc {
           isEqualTo:
               FirebaseFirestore.instance.doc("${CloudFirestoreAPI.users}/$uid"))
       .snapshots();
+
+  //Metodo para incrementar los like de un Place
+  Future likePlace(PlaceModel place, String uid) =>
+      _cloudFireStoreRepository.likePlace(place, uid);
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 

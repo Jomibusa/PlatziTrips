@@ -44,7 +44,7 @@ class _SingInScreen extends State<SignInScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          GradientBack(title: null, height: null),
+          GradientBack(height: null),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

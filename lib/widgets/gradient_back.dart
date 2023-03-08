@@ -4,7 +4,7 @@ class GradientBack extends StatelessWidget {
   String? title = "Popular";
   double? height = 0.0;
 
-  GradientBack({required this.title, required this.height, super.key});
+  GradientBack({required this.height, super.key});
 
   @override
   Widget build(BuildContext context) {
