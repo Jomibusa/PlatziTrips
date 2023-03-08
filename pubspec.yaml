@@ -44,6 +44,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   firebase_core: ^2.7.0
   image_picker: ^0.8.6+4
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

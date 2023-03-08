@@ -72,7 +72,7 @@ class PlaceInfo extends StatelessWidget {
       alignment: const Alignment(0.8, 1.25),
       children: <Widget>[
         card,
-        FloatingActionButtonGreen(
+        FloatingActionButtonRed(
           iconData: Icons.favorite_border,
           onPressed: () {},
         )

@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import '../../../widgets/floating_action_button_green.dart';
 
 class CardImageWithFabIcon extends StatelessWidget {
@@ -11,6 +11,7 @@ class CardImageWithFabIcon extends StatelessWidget {
   final double left;
   final VoidCallback onPressedFabIcon;
   final IconData iconData;
+  final bool internet;
 
   const CardImageWithFabIcon(this.left,
       {super.key,
@@ -18,7 +19,8 @@ class CardImageWithFabIcon extends StatelessWidget {
       required this.width,
       required this.height,
       required this.onPressedFabIcon,
-      required this.iconData});
+      required this.iconData,
+      this.internet = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CardImageWithFabIcon extends StatelessWidget {
     if (pathImage.contains("assets")) {
       image = AssetImage(pathImage);
     } else if (pathImage.contains("https:")) {
-      image = NetworkImage(pathImage);
+      image = CachedNetworkImageProvider(pathImage);
     } else {
       image = FileImage(File(pathImage));
     }
@@ -55,7 +57,7 @@ class CardImageWithFabIcon extends StatelessWidget {
       alignment: const Alignment(0.9, 1.1),
       children: [
         card,
-        FloatingActionButtonGreen(
+        FloatingActionButtonRed(
           iconData: iconData,
           onPressed: () {
             onPressedFabIcon();

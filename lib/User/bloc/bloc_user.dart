@@ -76,6 +76,16 @@ class UserBloc implements Bloc {
   Future likePlace(PlaceModel place, String uid) =>
       _cloudFireStoreRepository.likePlace(place, uid);
 
+  //Metodos para poner escucha al Place sellecionado en la pantalla principal
+  StreamController<PlaceModel> placeSelectedStreamController =
+      StreamController();
+
+  Stream<PlaceModel> get placeSelectedStream =>
+      placeSelectedStreamController.stream;
+
+  StreamSink<PlaceModel> get placeSelectedSink =>
+      placeSelectedStreamController.sink;
+
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
   Future<UploadTask> uploadFile(String path, File image) =>

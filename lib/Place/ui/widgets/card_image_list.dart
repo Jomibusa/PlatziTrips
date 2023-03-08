@@ -22,24 +22,21 @@ class _CardImageList extends State<CardImageList> {
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
-    return Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: SizedBox(
-          height: 350.0,
-          child: StreamBuilder(
-            stream: userBloc.placesStream,
-            builder: (context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.none:
-                  return const CircularProgressIndicator();
-                case ConnectionState.active:
-                case ConnectionState.done:
-                  return listViewPlaces(
-                      userBloc.buildPlaces(snapshot.data.docs, widget.user));
-              }
-            },
-          ),
+    return SizedBox(
+        height: 350.0,
+        child: StreamBuilder(
+          stream: userBloc.placesStream,
+          builder: (context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return const CircularProgressIndicator();
+              case ConnectionState.active:
+              case ConnectionState.done:
+                return listViewPlaces(
+                    userBloc.buildPlaces(snapshot.data.docs, widget.user));
+            }
+          },
         ));
   }
 
@@ -50,6 +47,7 @@ class _CardImageList extends State<CardImageList> {
         place.liked = !place.liked;
         userBloc.likePlace(place, widget.user.uid);
         place.likes = place.liked ? place.likes! + 1 : place.likes! - 1;
+        userBloc.placeSelectedSink.add(place);
       });
     }
 
@@ -60,14 +58,23 @@ class _CardImageList extends State<CardImageList> {
       padding: const EdgeInsets.all(25.0),
       scrollDirection: Axis.horizontal,
       children: places.map((place) {
-        return CardImageWithFabIcon(20,
+        return GestureDetector(
+          onTap: () {
+            print("CLICK PLACE: ${place.name}");
+            userBloc.placeSelectedSink.add(place);
+          },
+          child: CardImageWithFabIcon(
+            20,
             pathImage: place.urlImage ?? '',
             width: 300.0,
             height: 250.0,
             iconData: place.liked ? iconDataLiked : iconDataLike,
             onPressedFabIcon: () {
-          setLiked(place);
-        });
+              setLiked(place);
+            },
+            internet: true,
+          ),
+        );
       }).toList(),
     );
   }

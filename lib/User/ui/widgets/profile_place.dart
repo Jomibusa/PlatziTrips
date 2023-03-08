@@ -24,7 +24,7 @@ class ProfilePlace extends StatelessWidget {
               image: NetworkImage(infoPlace.urlImage??'')
           ),
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-          color: Colors.red,
+          color: Colors.blueGrey,
           boxShadow: const <BoxShadow>[
             BoxShadow(
                 color: Colors.black38,
