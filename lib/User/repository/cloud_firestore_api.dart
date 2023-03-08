@@ -37,7 +37,8 @@ class CloudFirestoreAPI {
       'description': place.description,
       'likes': place.likes,
       'userOwner': _db.doc("${CloudFirestoreAPI.users}/${currentUser?.uid}"),
-      'urlImage': place.urlImage
+      'urlImage': place.urlImage,
+      'usersLiked': FieldValue.arrayUnion([])
     }).then((value) {
       value.get().then((value) {
         DocumentReference placeRef = value.reference;

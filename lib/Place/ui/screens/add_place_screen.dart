@@ -75,7 +75,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                       fontSize: 14.0,
                       iconData: Icons.location_on_outlined),
                 ),
-                Container(
+                SizedBox(
                     width: 70.0,
                     child: ButtonPurple(
                       buttonText: "Add Place",
