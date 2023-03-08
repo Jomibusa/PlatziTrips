@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips_app/Place/model/place.dart';
@@ -46,7 +48,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     margin: const EdgeInsets.only(top: 30.0),
                     alignment: Alignment.center,
                     child: CardImageWithFabIcon(0,
-                        pathImage: widget.image?.path??"assets/img/rio.jpeg",
+                        pathImage: widget.image?.path ?? "assets/img/rio.jpeg",
                         width: 300.0,
                         height: 250.0,
                         onPressedFabIcon: () {},
@@ -80,19 +82,39 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     child: ButtonPurple(
                       buttonText: "Add Place",
                       onPressed: () {
-                        //Firebase storage
-                        //url
-                        //cloud firestores
-                        //place - title - description- url
-                        userBloc
-                            .updatePlaceData(InfoPlace(
-                                name: _controllerTitlePlace.text,
-                                description: _controllerDescriptionPlace.text,
-                                urlImage: "urlImage",
-                                likes: 0))
-                            .whenComplete(() {
-                          print("TERMINO");
-                          Navigator.pop(context);
+                        const CircularProgressIndicator();
+                        //1. Firebase Storage
+                        //url -
+                        //Id del usuario logeado actualmente
+                        userBloc.currentUser().then((User? user) {
+                          if (user != null) {
+                            String uid = user.uid;
+                            String path =
+                                "${uid}/${DateTime.now().toString()}.jpg";
+                            //change RULE in Firebase Storage console to = allow read, write: if request.auth != null;
+                            userBloc
+                                .uploadFile(path, widget.image ?? File(""))
+                                .then((UploadTask uploadTask) {
+                              uploadTask.then((TaskSnapshot snapshot) {
+                                snapshot.ref.getDownloadURL().then((urlImage) {
+                                  print("URLIMAGE: ${urlImage}");
+                                  //2. Cloud Firestore
+                                  //Place - title, description, url, userOwner, likes
+                                  userBloc
+                                      .updatePlaceData(InfoPlace(
+                                          name: _controllerTitlePlace.text,
+                                          description:
+                                              _controllerDescriptionPlace.text,
+                                          likes: 0,
+                                          urlImage: urlImage))
+                                      .whenComplete(() {
+                                    print("Termino");
+                                    Navigator.pop(context);
+                                  });
+                                });
+                              });
+                            });
+                          }
                         });
                       },
                       width: 200.0,
