@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../ui/widgets/profile_place.dart';
 
 class UserModel {
@@ -9,9 +7,6 @@ class UserModel {
   final String? photoURL;
   final List<ProfilePlace>? myPlaces;
   final List<ProfilePlace>? myFavoritePlaces;
-
-  //myFavoritePlaces
-  //myPlaces
 
   UserModel({
     required this.uid,

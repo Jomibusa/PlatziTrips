@@ -10,8 +10,6 @@ import 'package:platzi_trips_app/Place/repository/firebase_storage_repository.da
 import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/User/repository/auth_repository.dart';
 import 'package:platzi_trips_app/User/repository/cloud_firestore_api.dart';
-
-import '../../Place/ui/widgets/card_image.dart';
 import '../repository/cloud_firestore_repository.dart';
 import '../ui/widgets/profile_place.dart';
 
@@ -23,11 +21,14 @@ class UserBloc implements Bloc {
   //Flujo de datos - Streams
   //Stream - Firebase
   //StreamController
+
+  //Establece o instancia que se requiere conocer el estado de la sesion en Firebase
   Stream<User?> streamFirebase = FirebaseAuth.instance.authStateChanges();
 
   //Quiero monitorear el estado de la sesion en la pantalla SignIn
   Stream<User?> get authStatus => streamFirebase;
 
+  //Obtengo el usuario actual que se encuentra logeado
   Future<User?> currentUser() async {
     User? user = FirebaseAuth.instance.currentUser;
     return user;
@@ -58,7 +59,7 @@ class UserBloc implements Bloc {
   List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFireStoreRepository.buildMyPlaces(placesListSnapshot);
 
-  //Metodo pAra obtener todos los Places de la Base de datos
+  //Metodo para obtener todos los Places de la Base de datos
   List<PlaceModel> buildPlaces(
           List<DocumentSnapshot> placesListSnapshot, UserModel user) =>
       _cloudFireStoreRepository.buildPlaces(placesListSnapshot, user);
@@ -76,7 +77,7 @@ class UserBloc implements Bloc {
   Future likePlace(PlaceModel place, String uid) =>
       _cloudFireStoreRepository.likePlace(place, uid);
 
-  //Metodos para poner escucha al Place sellecionado en la pantalla principal
+  //Metodos para poner escucha al Place selecionado en la pantalla principal
   StreamController<PlaceModel> placeSelectedStreamController =
       StreamController();
 
@@ -88,6 +89,7 @@ class UserBloc implements Bloc {
 
   final _firebaseStorageRepository = FirebaseStorageRepository();
 
+  //Metodo para Guardar imagen en la FirebaseStorage
   Future<UploadTask> uploadFile(String path, File image) =>
       _firebaseStorageRepository.uploadFile(path, image);
 

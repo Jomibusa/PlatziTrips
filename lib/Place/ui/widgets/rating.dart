@@ -20,8 +20,7 @@ class Rating extends StatelessWidget {
         color: const Color(0xFFf2C611),
         size: fontSize,
       );
-    }
-    else {
+    } else {
       if (star < 0.5) {
         icon = Icon(
           Icons.star_border,
@@ -31,12 +30,7 @@ class Rating extends StatelessWidget {
       }
     }
 
-    return Container(
-        margin: const EdgeInsets.only(
-            right: 1.0
-        ),
-        child: icon
-    );
+    return Container(margin: const EdgeInsets.only(right: 1.0), child: icon);
   }
 
   Widget getRating(double stars) {

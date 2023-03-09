@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:platzi_trips_app/Place/ui/screens/add_place_screen.dart';
 import 'package:platzi_trips_app/User/bloc/bloc_user.dart';
 import 'circle_button.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ButtonsBar extends StatelessWidget {
   late UserBloc userBloc;

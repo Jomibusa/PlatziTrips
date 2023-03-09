@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../widgets/floating_action_button_green.dart';
+import '../../../widgets/floating_action_button_red.dart';
 
 class CardImageWithFabIcon extends StatelessWidget {
   final String pathImage;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:platzi_trips_app/widgets/floating_action_button_green.dart';
+import 'package:platzi_trips_app/widgets/floating_action_button_red.dart';
 import 'package:platzi_trips_app/Place/model/place.dart';
 
 class PlaceInfo extends StatelessWidget {

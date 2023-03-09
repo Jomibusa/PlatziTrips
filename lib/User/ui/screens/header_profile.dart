@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:platzi_trips_app/User/bloc/bloc_user.dart';
 import '../widgets/buttons_bar.dart';
 import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/User/ui/widgets/user_info.dart';
 
 class HeaderProfile extends StatelessWidget {
-
   late UserModel user;
 
   HeaderProfile({super.key, required this.user});
@@ -54,7 +51,8 @@ class HeaderProfile extends StatelessWidget {
       user = UserModel(
           name: asyncSnapshot.data.displayName,
           email: asyncSnapshot.data.email,
-          photoURL: asyncSnapshot.data.photoURL, uid: '');
+          photoURL: asyncSnapshot.data.photoURL,
+          uid: '');
       const title = Text(
         'Profile',
         style: TextStyle(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'review.dart';
 
 class ReviewList extends StatelessWidget {
-
   const ReviewList({super.key});
 
   @override

@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:platzi_trips_app/Place/ui/widgets/card_image.dart';
 import 'package:platzi_trips_app/User/model/user_model.dart';
 import 'package:platzi_trips_app/Place/model/place.dart';
 import 'package:platzi_trips_app/User/ui/widgets/profile_place.dart';
 
 class CloudFirestoreAPI {
+  //Nombres de las colecciones en Firebase
   static const String users = 'users';
   static const String places = 'places';
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  //Metodo para registrar/actualizar datos del user
   Future<void> updateUserData(UserModel user) async {
     CollectionReference usersCollection =
         _db.collection(CloudFirestoreAPI.users);
@@ -28,6 +28,7 @@ class CloudFirestoreAPI {
     }, SetOptions(merge: true));
   }
 
+  //Metodo para registrar/actualizar datos del place
   Future<void> updatePlaceData(PlaceModel place) async {
     CollectionReference refPlaces = _db.collection(CloudFirestoreAPI.places);
     User? currentUser = _auth.currentUser;
@@ -51,6 +52,7 @@ class CloudFirestoreAPI {
     });
   }
 
+  //Creamos la lista de Places con los datos obtenidos previamente de CloudFirebase
   List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) {
     List<ProfilePlace> profilePlaces = <ProfilePlace>[];
     for (var element in placesListSnapshot) {
@@ -76,10 +78,10 @@ class CloudFirestoreAPI {
           description: place['description'],
           urlImage: place['urlImage'],
           likes: place['likes']);
-      List usersLikedRefs =  place['usersLiked']??[];
+      List usersLikedRefs = place['usersLiked'] ?? [];
       currentPlace.liked = false;
       for (var drUL in usersLikedRefs) {
-        if(user.uid == drUL.id){
+        if (user.uid == drUL.id) {
           currentPlace.liked = true;
         }
       }
