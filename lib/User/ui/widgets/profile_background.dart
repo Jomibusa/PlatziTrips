@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BackgroundProfile extends StatelessWidget {
+  
+  const BackgroundProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

@@ -9,6 +9,8 @@ import '../widgets/profile_places_list.dart';
 class ProfileTrips extends StatelessWidget {
   late UserBloc userBloc;
 
+  ProfileTrips({super.key});
+
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
@@ -35,7 +37,7 @@ class ProfileTrips extends StatelessWidget {
         children: <Widget>[
           BackgroundProfile(),
           ListView(
-            children: <Widget>[Text("Usuario no logeado, Haz Login.")],
+            children: const <Widget>[Text("Usuario no logeado, Haz Login.")],
           ),
         ],
       );

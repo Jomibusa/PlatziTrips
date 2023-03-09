@@ -5,7 +5,7 @@ import 'package:platzi_trips_app/Place/model/place.dart';
 class PlaceInfo extends StatelessWidget {
   PlaceModel placeInfo;
 
-  PlaceInfo(this.placeInfo);
+  PlaceInfo(this.placeInfo, {super.key});
 
   @override
   Widget build(BuildContext context) {

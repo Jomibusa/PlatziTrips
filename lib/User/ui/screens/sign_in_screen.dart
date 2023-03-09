@@ -8,6 +8,9 @@ import 'package:platzi_trips_app/widgets/button_green.dart';
 import 'package:platzi_trips_app/widgets/gradient_back.dart';
 
 class SignInScreen extends StatefulWidget {
+
+  const SignInScreen({super.key});
+
   @override
   State createState() {
     return _SingInScreen();
@@ -33,7 +36,7 @@ class _SingInScreen extends State<SignInScreen> {
         if (!snapshot.hasData || snapshot.hasError) {
           return signInGoogleUI();
         } else {
-          return PlatziTripsCupertino();
+          return const PlatziTripsCupertino();
         }
       },
     );
@@ -48,7 +51,7 @@ class _SingInScreen extends State<SignInScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                   width: screenWidth - (screenWidth / 14),
                   //hago esta resta para colocarle margenes horizontales y ademas simular diferentes width de pantallas
                   child: const FittedBox(

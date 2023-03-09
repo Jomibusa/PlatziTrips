@@ -4,6 +4,9 @@ import 'header_appbar.dart';
 import '../widgets/description_place.dart';
 
 class HomeTrips extends StatelessWidget {
+  
+  const HomeTrips({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(

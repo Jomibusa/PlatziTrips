@@ -4,6 +4,9 @@ import 'package:platzi_trips_app/User/ui/screens/profile_trips.dart';
 import 'package:platzi_trips_app/Place/ui/screens/search_trips.dart';
 
 class PlatziTrips extends StatefulWidget {
+
+  const PlatziTrips({super.key});
+
   @override
   State createState() {
     return _PlatziTrips();
@@ -14,8 +17,8 @@ class _PlatziTrips extends State<PlatziTrips> {
   int indexTap = 0;
 
   final List<Widget> widgetsChildren = [
-    HomeTrips(),
-    SearchTrips(),
+    const HomeTrips(),
+    const SearchTrips(),
     ProfileTrips()
   ];
 

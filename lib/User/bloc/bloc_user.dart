@@ -13,7 +13,6 @@ import 'package:platzi_trips_app/User/repository/cloud_firestore_api.dart';
 import '../repository/cloud_firestore_repository.dart';
 import '../ui/widgets/profile_place.dart';
 
-final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 class UserBloc implements Bloc {
   final _auth_repository = AuthRepository();

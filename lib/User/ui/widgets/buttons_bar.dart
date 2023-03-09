@@ -10,6 +10,8 @@ import 'circle_button.dart';
 class ButtonsBar extends StatelessWidget {
   late UserBloc userBloc;
 
+  ButtonsBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);

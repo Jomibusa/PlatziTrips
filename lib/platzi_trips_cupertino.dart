@@ -7,9 +7,12 @@ import 'Place/ui/screens/search_trips.dart';
 import 'User/ui/screens/profile_trips.dart';
 
 class PlatziTripsCupertino extends StatelessWidget {
+
+  const PlatziTripsCupertino({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+  
     return Scaffold(
       bottomNavigationBar: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(items: const [
@@ -25,12 +28,12 @@ class PlatziTripsCupertino extends StatelessWidget {
             case 0:
               return CupertinoTabView(
                 builder: (BuildContext context) {
-                  return BlocProvider(bloc: UserBloc(), child: HomeTrips());
+                  return BlocProvider(bloc: UserBloc(), child: const HomeTrips());
                 },
               );
             case 1:
               return CupertinoTabView(
-                builder: (BuildContext context) => SearchTrips(),
+                builder: (BuildContext context) => const SearchTrips(),
               );
             case 2:
               return CupertinoTabView(
@@ -39,7 +42,7 @@ class PlatziTripsCupertino extends StatelessWidget {
                 },
               );
             default:
-              return HomeTrips();
+              return const HomeTrips();
           }
         },
       ),
